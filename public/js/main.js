@@ -1,4 +1,3 @@
-// Pega o preço do atributo data-price no formulário
 const ticketPrice = parseFloat(document.getElementById('ticketForm').dataset.price);
 
 document.getElementById('quantity').addEventListener('input', function() {

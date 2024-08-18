@@ -7,7 +7,7 @@ import eventRoutes from './routes/events.js';
 
 const app = express();
 
-// Configurar Sessão
+
 app.use(session({
   secret: 'seu_segredo_aqui',
   resave: false,
@@ -62,5 +62,5 @@ passport.deserializeUser(function(id, done) {
 });
 
 app.listen(3000, () => {
-  console.log('Server running on http://localhost:3000');
+  console.log('Servidor iniciado na porta http://localhost:3000');
 });

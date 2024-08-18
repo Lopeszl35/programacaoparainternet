@@ -8,5 +8,4 @@ router.get('/', getAllEvents);
 router.get('/event/:id', getEventDetails);
 
 
-
 export default router;

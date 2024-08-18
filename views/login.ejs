@@ -3,22 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Login</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form action="/login" method="post">
-        <div>
-            <label for="username">Usuário:</label>
-            <input type="text" id="username" name="username" required>
+    <section class="login">
+        <h1>Login</h1>
+        <div class="login-form">
+            <form action="/login" method="post">
+                <div class="form-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <div class="botao-login">
+                    <button type="submit">Entrar</button>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Entrar</button>
-        </div>
-    </form>
+    </section>
 </body>
 </html>
