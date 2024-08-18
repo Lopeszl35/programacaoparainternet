@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #0882bb !important;
+    color: #000000;
+}
+
+.event-list {
+    background-image: url('/img/vendas.webp'); 
+    background-size: auto; 
+    width: auto;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    padding: 20px;
+}
+
+.event-item {
+    background-color: rgba(255, 255, 255, 0.8); 
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+a {
+    text-decoration: none !important; 
+    color: inherit !important; 
+    border: solid 1px #000000;
+    border-radius: 8px; 
+    padding: 0.4em; 
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer; 
+    outline: none;
+}
+
+a:hover {
+    background-color: #f0f0f0; 
+    color: #000000; 
+}
+
+a:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+
+button {
+    text-decoration: none;
+    color: #000000;
+    border: solid 1px #000000;
+    border-radius: 8px !important;
+    padding: 0.4em;
+    background-color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f0f0f0;
+    color: #000000;
+}
+
+form {
+    margin-top: 20px;
+}
+
+input[type="number"] {
+    width: 60px;
+}
+
+.detalhes {
+    border: solid 3px #000000;
+    border-radius:  18px;
+    width: 50%;
+    padding: 20px;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: 7px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.botoes {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly
+    
+}
