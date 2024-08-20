@@ -22,14 +22,29 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  const error = req.query.error;
+  res.render('login', { error });
 });
 
 
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-}));
+
+app.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      // Se a autenticação falhar, redireciona de volta para /login com a mensagem de erro
+      return res.redirect('/login?error=' + encodeURIComponent(info.message));
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
 
 
 function ensureAuthenticated(req, res, next) {

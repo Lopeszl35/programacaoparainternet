@@ -80,6 +80,16 @@ input[type="number"] {
     margin-top: 2em; 
 }
 
+.error-message {
+    color: #ff0000;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 3px;
+    margin-bottom: 4px;
+    border-radius: 5px;
+}
+
+
 .event-list {
     background-image: url('/img/vendas.webp'); 
     background-size: auto; 

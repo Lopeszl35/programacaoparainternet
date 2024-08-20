@@ -9,6 +9,13 @@
 <body>
     <section class="login">
         <h1>Login</h1>
+
+        <% if (typeof error !== 'undefined') { %>
+        <div class="error-message">
+            <p><%= error %></p>
+        </div>
+        <% } %>
+
         <div class="login-form">
             <form action="/login" method="post">
                 <div class="form-group">
