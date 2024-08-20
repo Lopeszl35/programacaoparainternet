@@ -34,7 +34,6 @@ app.post('/login', (req, res, next) => {
       return next(err);
     }
     if (!user) {
-      // Se a autenticação falhar, redireciona de volta para /login com a mensagem de erro
       return res.redirect('/login?error=' + encodeURIComponent(info.message));
     }
     req.logIn(user, (err) => {

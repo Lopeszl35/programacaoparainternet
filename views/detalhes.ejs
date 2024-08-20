@@ -14,10 +14,9 @@
         <p>Descrição: <%= event.description %></p>
         <p>Data: <%= event.date %></p>
         <p>Local: <%= event.location %></p>
-        <p>Preço: R$<%= event.price %></p>
-        <p>Ingressos Disponíveis: <%= event.ticketsAvailable %></p>
+        <p id="ingressosDisponiveis">Ingressos Disponíveis: <%= event.ticketsAvailable %></p>
         
-        <form id="ticketForm" data-price="<%= event.price %>" ">
+        <form id="ticketForm" data-price="<%= event.price %>" data-ticketsavailable="<%= event.ticketsAvailable %>">
             <label for="quantity">Quantidade de Ingressos:</label>
             <input type="number" id="quantity" name="quantity" value="1" min="1" max="<%= event.ticketsAvailable %>">
             <p>Valor Total: R$<span id="totalPrice"><%= event.price %></span></p>
