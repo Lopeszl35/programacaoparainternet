@@ -7,27 +7,29 @@ import eventRoutes from './routes/events.js';
 
 const app = express();
 
-
+// Configuração da sessão
 app.use(session({
   secret: 'seu_segredo_aqui',
   resave: false,
   saveUninitialized: true,
 }));
 
+// Inicialização do Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Configurações do Express
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+// Rota de login
 app.get('/login', (req, res) => {
   const error = req.query.error;
   res.render('login', { error });
 });
 
-
-
+// Autenticação de login
 app.post('/login', (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err) {
@@ -45,7 +47,7 @@ app.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-
+// Função para garantir que o usuário está autenticado
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -53,10 +55,11 @@ function ensureAuthenticated(req, res, next) {
   res.redirect('/login');
 }
 
-
+// Uso das rotas
 app.use('/', ensureAuthenticated, eventRoutes);
+app.use('/eventos', eventRoutes);
 
-
+// Configuração do Passport
 passport.use(new LocalStrategy(
   function(username, password, done) {
     if (username === 'user' && password === 'password') {
@@ -75,6 +78,7 @@ passport.deserializeUser(function(id, done) {
   done(null, { id: 1, username: 'user' });
 });
 
+// Inicialização do servidor
 app.listen(3000, () => {
   console.log('Servidor iniciado na porta http://localhost:3000');
 });
