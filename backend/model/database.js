@@ -1,4 +1,4 @@
-const mysql = require('mysql2/promise');
+import mysql from 'mysql2/promise';
 
 class DataBase {
     constructor() {
@@ -37,4 +37,4 @@ class DataBase {
     
 }
 
-module.exports = DataBase;
+export default DataBase;

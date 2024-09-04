@@ -1,44 +1,99 @@
-const events = [
-  {
-    id: 1,
-    name: "Festival de Música ao Ar Livre",
-    date: "2024-09-01",
-    location: "Parque do Ibirapuera, São Paulo",
-    price: 100,
-    description: "Venha curtir um dia inteiro de música ao ar livre com bandas locais e internacionais. Traga sua família e amigos para aproveitar o melhor da música ao vivo em um dos parques mais icônicos de São Paulo.",
-    ticketsAvailable: 50
-  },
-  {
-    id: 2,
-    name: "Conferência Tech Innovation",
-    date: "2024-09-10",
-    location: "Centro de Convenções Rebouças, São Paulo",
-    price: 150,
-    description: "Participe da maior conferência de tecnologia da América Latina. Descubra as últimas inovações em tecnologia, assista a palestras de especialistas renomados e faça networking com profissionais do setor.",
-    ticketsAvailable: 30
-  },
-  {
-    id: 3,
-    name: "Exposição de Arte Contemporânea",
-    date: "2024-09-15",
-    location: "Museu de Arte Moderna, Rio de Janeiro",
-    price: 200,
-    description: "Explore as obras mais recentes de artistas contemporâneos em uma exposição que desafia a percepção e o entendimento da arte moderna. Uma experiência visual imperdível no coração do Rio de Janeiro.",
-    ticketsAvailable: 20
+import EventoModel from '../model/Entities/Eventos.js';
+import { validationResult } from 'express-validator';
+
+const eventoModel = new EventoModel();
+
+class EventoController {
+  async adicionarEvento(req, res) {
+    console.log('Recebendo requisição para adicionar evento...');
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.error('Erro de validação:', errors.array());
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { dataevento, local, descricao, preco, disponiveis } = req.body;
+    console.log('Dados recebidos:', { dataevento, local, descricao, preco, disponiveis });
+
+    const evento = new EventoModel(dataevento, local, descricao, preco, disponiveis);
+
+    try {
+      console.log('Tentando adicionar evento ao banco de dados...');
+      await eventoModel.adicionarEvento(evento);
+      console.log('Evento adicionado com sucesso!');
+      return res.status(201).json({ message: 'Evento adicionado com sucesso!' });
+    } catch (error) {
+      console.error('Erro ao adicionar evento:', error);
+      return res.status(500).json({ message: 'Erro ao adicionar evento.' });
+    }
   }
-];
 
-export const getAllEvents = (req, res) => {
-  res.render('index', { events });
-};
+  async atualizarEvento(req, res) {
+    console.log('Recebendo requisição para atualizar evento...');
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.error('Erro de validação:', errors.array());
+      return res.status(400).json({ errors: errors.array() });
+    }
 
+    const { id, dataevento, local, descricao, preco, disponiveis } = req.body;
+    console.log('Dados recebidos:', { id, dataevento, local, descricao, preco, disponiveis });
 
-export const getEventDetails = (req, res) => {
-  const event = events.find(e => e.id == req.params.id);
-  if (event) {
-    res.render('detalhes', { event });
-  } else {
-    res.status(404).send('Evento não encontrado');
+    const evento = new EventoModel(dataevento, local, descricao, preco, disponiveis);
+
+    try {
+      console.log('Tentando atualizar evento no banco de dados...');
+      await eventoModel.atualizarEvento(id, evento);
+      console.log('Evento atualizado com sucesso!');
+      return res.status(200).json({ message: 'Evento atualizado com sucesso!' });
+    } catch (error) {
+      console.error('Erro ao atualizar evento:', error);
+      return res.status(500).json({ message: 'Erro ao atualizar evento.' });
+    }
+
   }
-};
 
+  async obterEventos(req, res) {
+    console.log('Recebendo requisição para obter eventos...');
+    try {
+      const eventos = await eventoModel.obterEventos();
+      console.log('Eventos obtidos:', eventos);
+      return res.status(200).json({ eventos });
+    } catch (error) {
+      console.error('Erro ao obter eventos:', error);
+      return res.status(500).json({ message: 'Erro ao obter eventos.' });
+    }
+  }
+
+  async obterEventoId(req, res) {
+    const id = req.params.id;
+    try {
+      const evento = await eventoModel.obterEventoId(id);
+      console.log('Evento obtido:', evento);
+      if(Object.keys(evento).length === 0) {
+        return res.status(404).json({ message: 'Evento não encontrado.' });
+      }
+      return res.status(200).json({ evento });
+    } catch (error) {
+      console.error('Erro ao obter evento:', error);
+      return res.status(500).json({ message: 'Erro ao obter evento.' });
+    }
+  }
+
+  async excluirEvento(req, res) {
+    console.log('Recebendo requisição para excluir evento...');
+    const id = req.params.id;
+    try {
+      await eventoModel.excluirEvento(id);
+      console.log('Evento excluído com sucesso!');
+      return res.status(200).json({ message: 'Evento excluído com sucesso!' });
+    } catch (error) {
+      console.error('Erro ao excluir evento:', error);
+      return res.status(500).json({ message: 'Erro ao excluir evento.' });
+    }
+  }
+
+
+}
+
+export default EventoController;

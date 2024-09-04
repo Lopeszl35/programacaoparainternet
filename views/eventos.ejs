@@ -18,21 +18,25 @@
         <form action="/eventos" method="POST">
             <div class="form-group">
                 <label for="name">Nome do Evento:</label>
-                <input type="text" id="name" name="name" class="form-control" required>
+                <input type="text" id="dataevento" name="name" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="date">Data:</label>
-                <input type="date" id="date" name="date" class="form-control" required>
+                <input type="date" id="data" name="date" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="location">Local:</label>
-                <input type="text" id="location" name="location" class="form-control" required>
+                <input type="text" id="local" name="location" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="price">Preço:</label>
-                <input type="number" id="price" name="price" class="form-control" required>
+                <input type="number" id="preco" name="price" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-primary mt-3">Salvar Evento</button>
+            <div class="form-group">
+                <label for="tickets">Ingreços disponíveis:</label>
+                <input type="number" id="tickets" name="tickets" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success mt-3">Salvar Evento</button>
         </form>
     </section>
 </body>
