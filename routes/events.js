@@ -1,12 +1,13 @@
 import express from 'express';
-import { getAllEvents, getEventDetails } from '../backend/controllers/eventController.js';
 
 const router = express.Router();
 
-router.get('/', getAllEvents);
-router.get('/event/:id', getEventDetails);
+router.get('/', (req, res) => {
+  res.render('index', { title: 'Página Inicial' }); // Certifique-se de que você tem um arquivo 'index.ejs' em 'views'
+});
+
 router.get('/eventos', (req, res) => {
-  res.render('eventos');
+  res.render('eventos'); // Certifique-se de que você tem um arquivo 'eventos.ejs' em 'views'
 });
 
 export default router;

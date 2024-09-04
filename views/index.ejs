@@ -10,20 +10,16 @@
 <body>
     <h1 class="text-center mb-4">Eventos Disponíveis</h1>
     <nav>
-        <a href="/eventos" rel="noopener noreferrer">Cadastrar editar eventos</a>
+        <a href="/eventos" rel="noopener noreferrer">Cadastrar e Editar Eventos</a>
     </nav>
     <section>
-        <div class="event-list">
-            <% events.forEach(event => { %>
-                <div class="event-item">
-                    <h2><%= event.name %></h2>
-                    <p>Data: <%= event.date %></p>
-                    <p>Local: <%= event.location %></p>
-                    <p>Preço: R$<%= event.price %></p>
-                    <a href="/event/<%= event.id %>">Ver Detalhes</a>
-                </div>
-            <% }) %>
+        <div id="event-list" class="event-list">
+            <!-- Os eventos serão carregados aqui -->
         </div>
     </section>
+    
+    <!-- Scripts -->
+    <script src="/js/services/eventosServices.js"></script>
+    <script src="/js/eventos.js"></script>
 </body>
 </html>
