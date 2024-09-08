@@ -3,7 +3,8 @@ import DataBase from '../database.js';
 const database = new DataBase();
 
 class EventoModel {
-    constructor(dataevento, local, descricao, preco, disponiveis) {
+    constructor(nome, dataevento, local, descricao, preco, disponiveis) {
+        this.nome = nome;
         this.dataevento = dataevento;
         this.local = local;
         this.descricao = descricao;

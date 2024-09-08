@@ -16,7 +16,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                 const eventItem = document.createElement('div');
                 eventItem.className = 'event-item';
                 eventItem.innerHTML = `
-                    <h2>${event.descricao}</h2>
+                    <h2>${event.nome}</h2>
+                    <p>Descricão: ${event.descricao}</p>
                     <p>Data: ${new Date(event.dataevento).toLocaleDateString()}</p>
                     <p>Local: ${event.local}</p>
                     <p>Preço: R$${event.preco}</p>

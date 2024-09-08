@@ -17,6 +17,24 @@ class EventosServices {
        }
 
     }
+
+    async adicionarEvento(dadosEvento) {
+        const response = await fetch(`${API_BASE_URL}/eventos`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosEvento)
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao gravar evento');
+        } else {
+            const evento = await response.json();
+            return evento;
+        }
+    }
+
 }
 
 window.EventosServices = EventosServices;

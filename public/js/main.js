@@ -1,3 +1,4 @@
+
 const ticketPrice = parseFloat(document.getElementById('ticketForm').dataset.price);
 let ticketsAvailable = parseInt(document.getElementById('ticketForm').dataset.ticketsavailable);
 
@@ -27,3 +28,4 @@ document.getElementById('comprarbotao').addEventListener('click', function(event
         alert('Não há ingressos suficientes disponíveis.');
     }
 });
+

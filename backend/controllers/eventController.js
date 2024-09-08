@@ -12,10 +12,10 @@ class EventoController {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { dataevento, local, descricao, preco, disponiveis } = req.body;
-    console.log('Dados recebidos:', { dataevento, local, descricao, preco, disponiveis });
+    const { nome, dataevento, local, descricao, preco, disponiveis } = req.body;
+    console.log('Dados recebidos:', { nome, dataevento, local, descricao, preco, disponiveis });
 
-    const evento = new EventoModel(dataevento, local, descricao, preco, disponiveis);
+    const evento = new EventoModel(nome, dataevento, local, descricao, preco, disponiveis);
 
     try {
       console.log('Tentando adicionar evento ao banco de dados...');
@@ -36,10 +36,10 @@ class EventoController {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { id, dataevento, local, descricao, preco, disponiveis } = req.body;
-    console.log('Dados recebidos:', { id, dataevento, local, descricao, preco, disponiveis });
+    const { id, nome, dataevento, local, descricao, preco, disponiveis } = req.body;
+    console.log('Dados recebidos:', { id, nome, dataevento, local, descricao, preco, disponiveis });
 
-    const evento = new EventoModel(dataevento, local, descricao, preco, disponiveis);
+    const evento = new EventoModel(nome, dataevento, local, descricao, preco, disponiveis);
 
     try {
       console.log('Tentando atualizar evento no banco de dados...');
