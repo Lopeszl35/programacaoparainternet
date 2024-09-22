@@ -1,13 +1,20 @@
 import express from 'express';
-
 const router = express.Router();
 
+
+// Renderiza a página inicial
 router.get('/', (req, res) => {
-  res.render('index', { title: 'Página Inicial' }); // Certifique-se de que você tem um arquivo 'index.ejs' em 'views'
+  res.render('eventos', { title: 'Página Inicial' });
 });
 
-router.get('/eventos', (req, res) => {
-  res.render('eventos'); // Certifique-se de que você tem um arquivo 'eventos.ejs' em 'views'
+// Renderiza a página que lista todos os eventos
+router.get('/cadastrarevento', (req, res) => {
+  res.render('formularioEventos');
+});
+
+// Renderiza a página de detalhes do evento sem os dados
+router.get('/evento/:id', (req, res) => {
+  res.render('detalhesEvento'); 
 });
 
 export default router;

@@ -35,6 +35,38 @@ class EventosServices {
         }
     }
 
+    async atualizarEvento(dadosEvento, id) {
+        const response = await fetch(`${API_BASE_URL}/eventos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dadosEvento)
+        });
+        if(!response.ok) {
+            throw new Error('Erro ao atualizar evento')
+        } else {
+            const evento = await response.json();
+            return evento;
+        }
+    }
+
+    async obterEventoPorId(id) {
+        const response = await fetch(`${API_BASE_URL}/eventos/${id}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Erro ao obter evento');
+        } else {
+            const evento = await response.json();
+            return evento;
+        }
+    }
+
 }
 
 window.EventosServices = EventosServices;

@@ -1,65 +1,29 @@
 import express from 'express';
 import session from 'express-session';
 import passport from 'passport';
-import LocalStrategy from 'passport-local';
+import { Strategy as LocalStrategy } from 'passport-local';
 import bodyParser from 'body-parser';
-import eventRoutes from './routes/events.js';
+import routes from './routes/routes.js'; 
 
 const app = express();
 
 // Configuração da sessão
 app.use(session({
-  secret: 'seu_segredo_aqui',
+  secret: 'seu_segredo_aqui', 
   resave: false,
   saveUninitialized: true,
 }));
 
-// Inicialização do Passport
+// Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Configurações do Express
+// Configuração da view engine e pasta estática
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static('public')); // Servir arquivos estáticos da pasta 'public'
 
-// Rota de login
-app.get('/login', (req, res) => {
-  const error = req.query.error;
-  res.render('login', { error });
-});
-
-// Autenticação de login
-app.post('/login', (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    if (err) {
-      return next(err);
-    }
-    if (!user) {
-      return res.redirect('/login?error=' + encodeURIComponent(info.message));
-    }
-    req.logIn(user, (err) => {
-      if (err) {
-        return next(err);
-      }
-      return res.redirect('/');
-    });
-  })(req, res, next);
-});
-
-// Função para garantir que o usuário está autenticado
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
-
-// Uso das rotas
-app.use('/', ensureAuthenticated, eventRoutes);
-app.use('/eventos', eventRoutes);
-
-// Configuração do Passport
+// Configuração do Passport (Estratégia Local)
 passport.use(new LocalStrategy(
   function(username, password, done) {
     if (username === 'user' && password === 'password') {
@@ -70,13 +34,18 @@ passport.use(new LocalStrategy(
   }
 ));
 
+// Serializar o usuário na sessão
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
 
+// Desserializar o usuário a partir da sessão
 passport.deserializeUser(function(id, done) {
-  done(null, { id: 1, username: 'user' });
+  done(null, { id: 1, username: 'user' }); 
 });
+
+// Usar as rotas definidas no arquivo routes.js
+app.use('/', routes);
 
 // Inicialização do servidor
 app.listen(3000, () => {

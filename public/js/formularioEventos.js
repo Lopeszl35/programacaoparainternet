@@ -1,3 +1,4 @@
+
 document.getElementById('salvarEvento').addEventListener('click', async function(event) {
     const eventosServices = new window.EventosServices();
     event.preventDefault();
@@ -13,7 +14,7 @@ document.getElementById('salvarEvento').addEventListener('click', async function
     try {
         await eventosServices.adicionarEvento(evento);
         alert('Evento adicionado com sucesso!');
-        window.location.href = 'eventos.html';
+        document.getElementById('eventoForm').reset()
     } catch (error) {
         console.error('Erro ao adicionar evento:', error);
         alert('Erro ao adicionar evento.');

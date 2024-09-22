@@ -3,12 +3,11 @@ document.addEventListener("DOMContentLoaded", async function() {
     try {
         const response = await eventosServices.obterEventos();
         
-        // Log para verificar a estrutura da resposta
+        
         console.log('Eventos recebidos da API:', response);
         
         const eventList = document.getElementById('event-list');
         
-        // Acessando o array de eventos dentro da resposta
         const eventos = response.eventos;
 
         if (Array.isArray(eventos)) {
@@ -21,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     <p>Data: ${new Date(event.dataevento).toLocaleDateString()}</p>
                     <p>Local: ${event.local}</p>
                     <p>Preço: R$${event.preco}</p>
-                    <a href="/event/${event.id}">Ver Detalhes</a>
+                    <a href="/evento/${event.id}">Ver Detalhes</a>
                 `;
                 eventList.appendChild(eventItem);
             });

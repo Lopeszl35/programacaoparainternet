@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Cadastrar/Editar Eventos</title>
+</head>
+<body>
+    <h1 class="text-center mb-4">Cadastrar/Editar Eventos</h1>
+    <nav>
+        <a href="/">Voltar à Lista de Eventos</a>
+    </nav>
+    
+    <!-- Formulário de cadastro eventos -->
+    <section>
+        <form id="eventoForm">
+            <div class="form-group">
+                <label for="nome">Nome do Evento:</label>
+                <input type="text" id="nome" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descricão:</label>
+                <textarea id="descricao" name="description" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="data">Data:</label>
+                <input type="date" id="data" name="date" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="local">Local:</label>
+                <input type="text" id="local" name="location" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="preco">Preço:</label>
+                <input type="number" id="preco" name="price" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="tickets">Ingreços disponíveis:</label>
+                <input type="number" id="tickets" name="tickets" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success mt-3" id="salvarEvento">Salvar Evento</button>
+        </form>
+    </section>
+    
+    <script src="/js/services/eventosServices.js"></script>
+    <script src="/js/formularioEventos.js"></script>
+</body>
+</html>
