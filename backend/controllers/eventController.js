@@ -68,17 +68,36 @@ class EventoController {
   async obterEventoId(req, res) {
     const id = req.params.id;
     try {
-      const evento = await eventoModel.obterEventoId(id);
-      console.log('Evento obtido:', evento);
-      if(Object.keys(evento).length === 0) {
-        return res.status(404).json({ message: 'Evento não encontrado.' });
-      }
-      return res.status(200).json({ evento });
+        const evento = await eventoModel.obterEventoId(id);
+        console.log('Evento obtido:', evento);
+        if (Object.keys(evento).length === 0) {
+            return res.status(404).json({
+                status: 'error',
+                message: 'Evento não encontrado',
+                timestamp: new Date().toISOString(),
+                requestId: req.id || 'N/A'
+            });
+        }
+
+        return res.status(200).json({
+            status: 'success',
+            message: 'Evento obtido com sucesso',
+            timestamp: new Date().toISOString(),
+            requestId: req.id || 'N/A',
+            evento: evento,
+            warnings: []
+        });
     } catch (error) {
-      console.error('Erro ao obter evento:', error);
-      return res.status(500).json({ message: 'Erro ao obter evento.' });
+        console.error('Erro ao obter evento:', error);
+        return res.status(500).json({
+            status: 'error',
+            message: 'Erro ao obter evento',
+            timestamp: new Date().toISOString(),
+            requestId: req.id || 'N/A'
+        });
     }
-  }
+}
+
 
   async excluirEvento(req, res) {
     console.log('Recebendo requisição para excluir evento...');

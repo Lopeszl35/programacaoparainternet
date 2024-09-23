@@ -35,7 +35,11 @@ class EventoModel {
     async obterEventoId(id) {
         try {
             const rows = await database.executaComando('SELECT * FROM evento WHERE id = ?', [id]);
-            return rows;
+            if (rows.length > 0) {
+                return rows[0];
+            } else {
+                throw new Error('Evento não encontrado');
+            }
         } catch (error) {
             console.error('Erro ao obter evento:', error);
             throw error;
