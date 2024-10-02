@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const eventosServices = new window.EventosServices();
-    
+
     // Obter o ID do evento da URL (assume que o ID está no formato /evento/1)
     const eventId = window.location.pathname.split('/').pop();
     
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const nome = evento.nome || 'Nome não disponível';
             const descricao = evento.descricao || 'Descrição não disponível';
             const local = evento.local || 'Local não disponível';
-            const ingressosDisponiveis = evento.disponiveis || 0;
+            let ingressosDisponiveis = evento.disponiveis || 0;
             
             // Converte o preço para número, garantindo que o campo existe
             const precoNumerico = parseFloat(evento.preco) || 0;
@@ -49,7 +49,30 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('quantity').addEventListener('input', function () {
                 const quantity = parseInt(this.value);
                 const totalPrice = precoNumerico * quantity;
-                document.getElementById('totalPrice').innerText = totalPrice.toFixed(2);
+                document.getElementById('calculatedTotal').innerText = totalPrice.toFixed(2);
+            });
+
+            // Função para realizar a compra
+            document.getElementById('comprarbotao').addEventListener('click', async function (event) {
+                event.preventDefault(); 
+                const quantity = parseInt(document.getElementById('quantity').value);
+
+                if (quantity <= ingressosDisponiveis && quantity > 0) {
+                    // Atualizar o número de ingressos disponíveis no frontend
+                    ingressosDisponiveis -= quantity;
+                    document.getElementById('ingressosDisponiveis').innerText = `Ingressos Disponíveis: ${ingressosDisponiveis}`;
+
+                    // Atualizar o backend com a nova quantidade de ingressos disponíveis
+                    try {
+                        await eventosServices.atualizarEvento({ ...evento, disponiveis: ingressosDisponiveis }, eventId);
+                        alert('Compra realizada com sucesso!');
+                    } catch (error) {
+                        console.error('Erro ao atualizar o evento:', error);
+                        alert('Erro ao realizar a compra. Tente novamente.');
+                    }
+                } else {
+                    alert('Quantidade de ingressos inválida ou indisponível.');
+                }
             });
 
         } catch (error) {

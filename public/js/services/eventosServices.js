@@ -35,6 +35,18 @@ class EventosServices {
         }
     }
 
+    async excluirEvento(id) {
+        const response = await fetch(`${API_BASE_URL}/eventos/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if(!response.ok) {
+            throw new Error('Erro ao excluir evento');
+        }
+    }
+
     async atualizarEvento(dadosEvento, id) {
         const response = await fetch(`${API_BASE_URL}/eventos/${id}`, {
             method: 'PUT',
